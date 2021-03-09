@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+          <h1 class="text-center" style>Hot Resturant</h1>
+          <h2 class="text-center">
+            We only have 5 tables! Book your seat before they all are gone!
+          </h2>
+          <hr />
+  
+          <div class="text-center">
+            <a href="/">
+              <button class="btn btn-danger btn-lg">
+                <span class="fa"></span> Home
+              </button>
+            </a>
+            <a href="/Tables">
+              <button class="btn btn-danger btn-lg">
+                <span class="fa"></span> Tables
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+          </div>
+      </div>  
+
+      <div class="card">
+        <div class="card-header">
+          <h3><strong>Add Characters</strong></h3>
+        </div>
+        <div class="card-body">
+          <form method="POST" role="form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" />
+            </div>
+            <div class="form-group">
+              <label for="role">Phone</label>
+              <input type="text" class="form-control" id="phone" />
+            </div>
+            <div class="form-group">
+              <label for="age">email</label>
+              <input type="text" class="form-control" id="email" />
+            </div>
+            <div class="form-group">
+                <label for="age">ID</label>
+                <input type="text" class="form-control" id="id" />
+              </div>
+          </form>
+          <br />
+          <div class="text-right">
+            <button
+              type="submit"
+              class="btn btn-primary btn-md"
+              id="add-btn"
+            >
+              <span class="fa fa-fire"></span> Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript">
+const addBtn = document.getElementById('add-btn');
+addBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  let name = document.getElementById('name').value.trim();
+  let phone = document.getElementById('phone').value.trim();
+  let email = document.getElementById('email').value.trim();
+  let id = document.getElementById('id').value.trim();
+  let reservation = {
+    name: name,
+    phone: parseInt(phone),
+    email: email,
+    id: parseInt(id),
+  };
+  console.log(reservation)
+
+  fetch('/api/Tables', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(reservation),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('add.html', data);
+      alert(`Adding person: ${data.name}`);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
+</script>
+</body>
+</html>
